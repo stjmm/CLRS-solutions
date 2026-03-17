@@ -1,19 +1,22 @@
-cmake_minimum_version(VERSION 3.20)
+cmake_minimum_required(VERSION 3.20)
+project(clrs_solutions CXX)
 
-projects(CLRS_Solutions CXX)
-
-set(CMAKE_SET_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic")
+if(MSVC)
+    add_compile_options(/W4)
+else()
+    add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
 
-include_directories(include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-file(GLOB_RESOURCE "src/*.cpp")
+file(GLOB_RECURSE sources "src/*.cpp")
 
-foreach(SOURCE_FILE ${SOURCES})
-    get_filename_component(TARGET_NAME ${SOURCE_FILE} NAME_WE)
-    
-    add_executable(${TARGET_NAME} ${SOURCE_FILE})
+foreach(source_file ${sources})
+    get_filename_component(target_name ${source_file} NAME_WE)
+    add_executable(${target_name} ${source_file})
 endforeach()
