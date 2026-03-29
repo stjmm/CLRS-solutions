@@ -1,5 +1,6 @@
 #include <vector>
 
+#include "clrs/bubble_sort.hpp"
 #include "clrs/insertion_sort.hpp"
 #include "clrs/selection_sort.hpp"
 #include "clrs/merge_sort.hpp"
@@ -24,6 +25,11 @@ int main()
     arr = {5,2,4,6,1,3};
     clrs::insertion_sort_recursive(arr, arr.size() - 1);
     clrs::print_vector(arr, "recursive insertion sort");
+
+
+    arr = {5,2,4,6,1,3};
+    clrs::bubble_sort(arr);
+    clrs::print_vector(arr, "bubble sort");
 
     return 0;
 }
