@@ -13,7 +13,7 @@ These are called from .cpp files in src. For example [sorts.cpp](./src/chapter02
 ```bash
 $ mkdir -p build
 $ cmake -S . -B build
-$ cmae --build build
+$ cmake --build build
 ```
 
 ## Progress
