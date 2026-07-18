@@ -30,5 +30,9 @@ int main()
     clrs::bubble_sort(arr);
     clrs::print_vector(arr, "bubble sort");
 
+    arr = {1, 67, 2, 1, 231, 213123, 112, 231, 123123123, 123123123, 3333, 3};
+    clrs::merge_sort(arr, 0, arr.size() - 1);
+    clrs::print_vector(arr, "merge sort 2");
+
     return 0;
 }
