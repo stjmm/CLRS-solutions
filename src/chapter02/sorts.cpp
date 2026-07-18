@@ -4,6 +4,7 @@
 #include "clrs/insertion_sort.hpp"
 #include "clrs/selection_sort.hpp"
 #include "clrs/merge_sort.hpp"
+#include "clrs/inversion.hpp""
 #include "clrs/util.hpp"
 
 int main()
@@ -33,6 +34,9 @@ int main()
     arr = {1, 67, 2, 1, 231, 213123, 112, 231, 123123123, 123123123, 3333, 3};
     clrs::merge_sort(arr, 0, arr.size() - 1);
     clrs::print_vector(arr, "merge sort 2");
+
+    arr = {4, 3, 2, 1};
+    std::cout << "Inversions in array: " << clrs::count_inversions_merge_sort(arr, 0, arr.size() - 1) << '\n';
 
     return 0;
 }
