@@ -16,4 +16,29 @@ namespace clrs {
         }
         std::cout << "]\n";
     }
+
+    template<typename T>
+    void print_matrix(const std::vector<std::vector<T>> &A, int n)
+    {
+        std::cout << "[\n";
+
+        for (int i = 0; i < n; i++) {
+            std::cout << '[';
+            for (int j = 0; j < n; j++) {
+                std::cout << A[i][j];
+
+                if (j + 1 < n)
+                    std::cout << ", ";
+            }
+
+            std::cout << ']';
+
+            if (i + 1 < n)
+                std::cout << ',';
+
+            std::cout << '\n';
+        }
+
+        std::cout << "]\n";
+    }
 }
