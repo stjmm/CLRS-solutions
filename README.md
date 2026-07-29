@@ -15,7 +15,3 @@ $ mkdir -p build
 $ cmake -S . -B build
 $ cmake --build build
 ```
-
-## Progress
-- [x] Chapter 1
-- [x] Chapter 2
