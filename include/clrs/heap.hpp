@@ -1,50 +1,56 @@
-#include <algorithm>
 #include <vector>
+#include <algorithm>
+#include <stdexcept>
 
 namespace clrs {
+template<typename T>
+void max_heapify(std::vector<T> &A, int i, int heap_size)
+{
+    const int l = 2 * i + 1;
+    const int r = 2 * i + 2;
+    int largest = i;
 
-template <typename T>
-void max_heapify(std::vector<T>& A, int heap_size, int root) {
-  const int left = 2 * root + 1;
-  const int right = 2 * root + 2;
+    if (l <= heap_size && A[l] > A[i])
+        largest = l;
 
-  int largest = root;
+    if (r <= heap_size && A[r] > A[largest])
+        largest = r;
 
-  if (left <= heap_size && A[left] > A[largest]) {
-    largest = left;
-  }
-
-  if (right <= heap_size && A[right] > A[largest]) {
-    largest = right;
-  }
-
-  if (largest != root) {
-    std::swap(A[root], A[largest]);
-    max_heapify(A, heap_size, largest);
-  }
+    if (largest != i) {
+        std::swap(A[i], A[largest]);
+        max_heapify(A, largest, heap_size);
+    }
 }
 
-template <typename T>
-void build_max_heap(std::vector<T>& A) {
-  const int size = static_cast<int>(A.size());
+template<typename T>
+void build_max_heap(std::vector<T> &A)
+{
+    const int heap_size = static_cast<int>(A.size()) - 1;
 
-  for (int i = size / 2 - 1; i >= 0; --i) {
-    max_heapify(A, size - 1, i);
-  }
+    for (int i = heap_size / 2; i >= 0; i--)
+        max_heapify(A, i, heap_size);
 }
 
-template <typename T>
-void heap_sort(std::vector<T>& A) {
-  if (A.size() < 2) {
-    return;
-  }
+template<typename T>
+T max_heap_maximum(std::vector<T> &A)
+{
+    if (A.empty())
+        throw std::underflow_error("Priority queue is empty.");
 
-  build_max_heap(A);
-
-  for (int i = static_cast<int>(A.size()) - 1; i >= 1; --i) {
-    std::swap(A[0], A[i]);
-    max_heapify(A, i - 1, 0);
-  }
+    return A[0];
 }
 
+template<typename T>
+void heap_sort(std::vector<T> &A)
+{
+    if (A.size() < 2)
+        return;
+
+    build_max_heap(A);
+
+    for (int i = A.size() - 1; i > 0; i--) {
+        std::swap(A[0], A[i]);
+        max_heapify(A, 0, i - 1);
+    }
+}
 }
