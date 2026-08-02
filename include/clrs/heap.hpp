@@ -32,12 +32,54 @@ void build_max_heap(std::vector<T> &A)
 }
 
 template<typename T>
-T max_heap_maximum(std::vector<T> &A)
+const T& max_heap_maximum(std::vector<T> &A)
 {
     if (A.empty())
         throw std::underflow_error("Priority queue is empty.");
 
     return A[0];
+}
+
+template<typename T>
+T max_heap_extract_max(std::vector<T> &A)
+{
+    if (A.empty())
+        throw std::underflow_error("Priority queue is empty.");
+
+    T max = std::move(A[0]);
+
+    if (A.size() == 1) {
+        A.pop_back();
+        return max;
+    }
+
+    A[0] = std::move(A.back());
+    A.pop_back();
+
+    max_heapify(A, 0, static_cast<int>(A.size()) - 1);
+
+    return max;
+}
+
+template<typename T>
+void max_heap_increase_key(std::vector<T> &A, int i, const T& k)
+{
+    if (k < A[i])
+        throw std::invalid_argument("New key is smaller than current key");
+
+    A[i] = k;
+
+    while (i > 0 && A[(i - 1) / 2] < A[i]) {
+        std::swap(A[i], A[(i - 1) / 2]);
+        i = (i - 1) / 2;
+    }
+}
+
+template<typename T>
+void max_heap_insert(std::vector<T> &A, T key)
+{
+    A.push_back(std::move(key));
+    max_heap_increase_key(A, A.size() - 1, key);
 }
 
 template<typename T>
